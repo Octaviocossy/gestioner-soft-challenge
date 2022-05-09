@@ -7,6 +7,7 @@ const Context = createContext();
 export const Provider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
   const [datastatus, setDataStatus] = useState(false);
+  const [tasksFiltered, setTasksFiltered] = useState([]);
   const [userfilteringparameters, setUserFilteringParameters] = useState([]);
   const [tasksparameters, setTasksParameters] = useState({
     nombres: [],
@@ -14,7 +15,20 @@ export const Provider = ({ children }) => {
     turno: [],
   });
 
-  const [tasksFiltered, setTasksFiltered] = useState([]);
+  const formatTurnos = (tasks) => {
+    const fixed = [];
+
+    tasks.forEach((task) => {
+      const copy = { ...task };
+
+      copy.Descripcion = copy.Descripcion.toUpperCase()
+        .replace('\nBUNGE | BUNGE', '')
+        .trim();
+
+      fixed.push(copy);
+    });
+    setTasks(fixed);
+  };
 
   const getTasksParameters = () => {
     const nombres = [];
@@ -27,7 +41,6 @@ export const Provider = ({ children }) => {
         tipoCarga.push(task.Tarea.TipoCargaDescripcion.trim().toUpperCase());
         turno.push(task.Descripcion.trim().toUpperCase());
       });
-
       setTasksParameters({
         nombres: [...new Set(nombres)],
         tipoCarga: [...new Set(tipoCarga)],
@@ -66,7 +79,7 @@ export const Provider = ({ children }) => {
   const getData = async () => {
     const data = await api.getMock();
 
-    setTasks(data.TareaTurnoList);
+    formatTurnos(data.TareaTurnoList);
     setDataStatus(true);
   };
 

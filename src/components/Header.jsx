@@ -1,7 +1,8 @@
-import { Box, HStack, Select, Text } from '@chakra-ui/react';
+import { Box, Button, HStack, Select, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 
 import { useAppContext } from '../context';
+import useSelect from '../hooks/useSelect';
 
 const Header = () => {
   const { state, actions } = useAppContext();
@@ -18,46 +19,61 @@ const Header = () => {
     });
   };
 
+  const [SelectComponent] = useSelect();
+
   useEffect(() => {
     actions.saveUserParameters(savevalue);
   }, [savevalue]);
 
   return (
-    <HStack py={'2rem'}>
+    <Box
+      display={'flex'}
+      flexDirection={'row'}
+      justifyContent={'space-between'}
+      py={'2rem'}
+    >
       <Box w={'100%'}>
         <Text>Nombre de buque: </Text>
-        <Select name={'nombre'} onChange={handleChange}>
-          <option>-</option>
-          {state.tasksparameters.nombres.map((name) => (
-            <option key={name} value={name}>
-              {name}
-            </option>
-          ))}
-        </Select>
+        <SelectComponent
+          handleChange={handleChange}
+          name={'nombre'}
+          state={state.tasksparameters.nombres}
+          value={savevalue.nombre}
+        />
       </Box>
-      <Box w={'100%'}>
+      <Box marginLeft={'0.5rem'} w={'100%'}>
         <Text>Tipo de carga: </Text>
-        <Select maxW={'20rem'} name={'tipoCarga'} onChange={handleChange}>
-          <option>-</option>
-          {state.tasksparameters.tipoCarga.map((name) => (
-            <option key={name} value={name}>
-              {name}
-            </option>
-          ))}
-        </Select>
+        <SelectComponent
+          handleChange={handleChange}
+          name={'tipoCarga'}
+          state={state.tasksparameters.tipoCarga}
+          value={savevalue.tipoCarga}
+        />
       </Box>
-      <Box w={'100%'}>
+      <Box marginLeft={'0.5rem'} w={'100%'}>
         <Text>Turno: </Text>
-        <Select maxW={'20rem'} name={'turno'} onChange={handleChange}>
-          <option>-</option>
-          {state.tasksparameters.turno.map((name) => (
-            <option key={name} value={name}>
-              {name}
-            </option>
-          ))}
-        </Select>
+        <SelectComponent
+          handleChange={handleChange}
+          name={'turno'}
+          state={state.tasksparameters.turno}
+          value={savevalue.turno}
+        />
       </Box>
-    </HStack>
+      <Button
+        marginLeft={'0.5rem'}
+        marginTop={'1.5rem'}
+        w={'100%'}
+        onClick={() =>
+          setSaveValue({
+            nombre: '-',
+            tipoCarga: '-',
+            turno: '-',
+          })
+        }
+      >
+        Reset Filtros
+      </Button>
+    </Box>
   );
 };
 

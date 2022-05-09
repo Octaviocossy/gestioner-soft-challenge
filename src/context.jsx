@@ -15,7 +15,36 @@ export const Provider = ({ children }) => {
     turno: [],
   });
 
-  const formatTurnos = (tasks) => {
+  const textFormatter = (text) => {
+    const textArr = [];
+
+    for (let i = 0; i <= text.trim().length - 1; i++) {
+      textArr[i] = text.trim().toLowerCase()[i];
+    }
+
+    const formattedText = [];
+
+    for (let i = 0; i <= textArr.length - 1; i++) {
+      let letter = '';
+
+      if (textArr[i - 1] === ' ') {
+        letter = textArr[i].toUpperCase();
+        formattedText.splice(i, 1, letter);
+      } else {
+        if (i === 0) {
+          letter = textArr[i].toUpperCase();
+        } else {
+          letter = textArr[i];
+        }
+
+        formattedText[i] = letter;
+      }
+    }
+
+    return formattedText.join('');
+  };
+
+  const turnoFormatter = (tasks) => {
     const fixed = [];
 
     tasks.forEach((task) => {
@@ -37,9 +66,9 @@ export const Provider = ({ children }) => {
 
     if (datastatus) {
       tasks.map((task) => {
-        nombres.push(task.Tarea.Nombre.trim().toUpperCase());
-        tipoCarga.push(task.Tarea.TipoCargaDescripcion.trim().toUpperCase());
-        turno.push(task.Descripcion.trim().toUpperCase());
+        nombres.push(textFormatter(task.Tarea.Nombre));
+        tipoCarga.push(textFormatter(task.Tarea.TipoCargaDescripcion));
+        turno.push(textFormatter(task.Descripcion));
       });
       setTasksParameters({
         nombres: [...new Set(nombres)],
@@ -63,9 +92,9 @@ export const Provider = ({ children }) => {
 
   const getParametersOfTasks = (task) => {
     return [
-      task.Tarea.Nombre.trim().toUpperCase(),
-      task.Tarea.TipoCargaDescripcion.trim().toUpperCase(),
-    ].concat(task.Descripcion.trim().toUpperCase());
+      textFormatter(task.Tarea.Nombre),
+      textFormatter(task.Tarea.TipoCargaDescripcion),
+    ].concat(textFormatter(task.Descripcion));
   };
 
   const filterTasksByUserParams = (userParameters, allTasks) => {
@@ -79,7 +108,7 @@ export const Provider = ({ children }) => {
   const getData = async () => {
     const data = await api.getMock();
 
-    formatTurnos(data.TareaTurnoList);
+    turnoFormatter(data.TareaTurnoList);
     setDataStatus(true);
   };
 
@@ -96,6 +125,7 @@ export const Provider = ({ children }) => {
     getData,
     getTasksParameters,
     saveUserParameters,
+    textFormatter,
   };
 
   return (

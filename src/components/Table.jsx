@@ -13,7 +13,7 @@ import {
 import { useAppContext } from '../context';
 
 const Table = () => {
-  const { state } = useAppContext();
+  const { state, actions } = useAppContext();
 
   return (
     <Box>
@@ -33,9 +33,11 @@ const Table = () => {
                 return (
                   <>
                     <Tr>
-                      <Td>{task.Tarea.Nombre}</Td>
-                      <Td>{task.Tarea.TipoCargaDescripcion}</Td>
-                      <Td>{task.Descripcion}</Td>
+                      <Td>{actions.textFormatter(task.Tarea.Nombre)}</Td>
+                      <Td>
+                        {actions.textFormatter(task.Tarea.TipoCargaDescripcion)}
+                      </Td>
+                      <Td>{actions.textFormatter(task.Descripcion)}</Td>
                       <Td>
                         <Button>Detalles</Button>
                       </Td>

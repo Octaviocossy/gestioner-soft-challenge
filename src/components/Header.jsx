@@ -1,8 +1,8 @@
-import { Box, Button, HStack, Select, Text } from '@chakra-ui/react';
+import { Box, Button, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 
 import { useAppContext } from '../context';
-import useSelect from '../hooks/useSelect';
+import Select from '../ui/Select';
 
 const Header = () => {
   const { state, actions } = useAppContext();
@@ -19,8 +19,6 @@ const Header = () => {
     });
   };
 
-  const [SelectComponent] = useSelect();
-
   useEffect(() => {
     actions.saveUserParameters(savevalue);
   }, [savevalue]);
@@ -34,7 +32,7 @@ const Header = () => {
     >
       <Box w={'100%'}>
         <Text>Nombre de buque: </Text>
-        <SelectComponent
+        <Select
           handleChange={handleChange}
           name={'nombre'}
           state={state.tasksparameters.nombres}
@@ -43,7 +41,7 @@ const Header = () => {
       </Box>
       <Box marginLeft={'0.5rem'} w={'100%'}>
         <Text>Tipo de carga: </Text>
-        <SelectComponent
+        <Select
           handleChange={handleChange}
           name={'tipoCarga'}
           state={state.tasksparameters.tipoCarga}
@@ -52,7 +50,7 @@ const Header = () => {
       </Box>
       <Box marginLeft={'0.5rem'} w={'100%'}>
         <Text>Turno: </Text>
-        <SelectComponent
+        <Select
           handleChange={handleChange}
           name={'turno'}
           state={state.tasksparameters.turno}
@@ -60,9 +58,10 @@ const Header = () => {
         />
       </Box>
       <Button
+        colorScheme={'orange'}
         marginLeft={'0.5rem'}
         marginTop={'1.5rem'}
-        w={'100%'}
+        w={'25rem'}
         onClick={() =>
           setSaveValue({
             nombre: '-',

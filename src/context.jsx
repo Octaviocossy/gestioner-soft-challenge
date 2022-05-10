@@ -56,7 +56,8 @@ export const Provider = ({ children }) => {
 
       fixed.push(copy);
     });
-    setTasks(fixed);
+
+    return fixed;
   };
 
   const getTasksParameters = () => {
@@ -108,7 +109,7 @@ export const Provider = ({ children }) => {
   const getData = async () => {
     const data = await api.getMock();
 
-    turnoFormatter(data.TareaTurnoList);
+    setTasks(turnoFormatter(data.TareaTurnoList));
     setDataStatus(true);
   };
 

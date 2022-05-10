@@ -11,12 +11,17 @@ import {
 } from '@chakra-ui/react';
 
 import { useAppContext } from '../context';
+import useModal from '../hooks/useModal';
+
+import Row from './Row';
 
 const Table = () => {
-  const { state, actions } = useAppContext();
+  const { state } = useAppContext();
+  const [Modal, setData, onOpen, isOpen] = useModal();
 
   return (
     <Box>
+      <Modal />
       <TableContainer>
         <ChakraTable variant="simple">
           <Thead>
@@ -29,22 +34,14 @@ const Table = () => {
           </Thead>
           <Tbody>
             {state.tasksFiltered[0] &&
-              state.tasksFiltered.map((task) => {
-                return (
-                  <>
-                    <Tr>
-                      <Td>{actions.textFormatter(task.Tarea.Nombre)}</Td>
-                      <Td>
-                        {actions.textFormatter(task.Tarea.TipoCargaDescripcion)}
-                      </Td>
-                      <Td>{actions.textFormatter(task.Descripcion)}</Td>
-                      <Td>
-                        <Button>Detalles</Button>
-                      </Td>
-                    </Tr>
-                  </>
-                );
-              })}
+              state.tasksFiltered.map((task) => (
+                <Row
+                  key={task.id}
+                  setData={setData}
+                  task={task}
+                  onOpen={onOpen}
+                />
+              ))}
           </Tbody>
         </ChakraTable>
       </TableContainer>

@@ -1,7 +1,6 @@
 import { Button, Td, Tr } from '@chakra-ui/react';
 
 import { useAppContext } from '../context';
-import useModal from '../hooks/useModal';
 
 const Row = ({ task, setData, onOpen }) => {
   const { actions } = useAppContext();
@@ -12,18 +11,16 @@ const Row = ({ task, setData, onOpen }) => {
   };
 
   return (
-    <>
-      <Tr>
-        <Td>{actions.textFormatter(task.Tarea.Nombre)}</Td>
-        <Td>{actions.textFormatter(task.Tarea.TipoCargaDescripcion)}</Td>
-        <Td>{actions.textFormatter(task.Descripcion)}</Td>
-        <Td>
-          <Button colorScheme={'orange'} onClick={handleOpen}>
-            Detalles
-          </Button>
-        </Td>
-      </Tr>
-    </>
+    <Tr>
+      <Td>{actions.textFormatter(task.Tarea.Nombre)}</Td>
+      <Td>{actions.textFormatter(task.Tarea.TipoCargaDescripcion)}</Td>
+      <Td>{actions.textFormatter(task.Descripcion)}</Td>
+      <Td>
+        <Button colorScheme={'orange'} onClick={handleOpen}>
+          Detalles
+        </Button>
+      </Td>
+    </Tr>
   );
 };
 

@@ -33,10 +33,10 @@ const Table = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {state.tasksFiltered[0] &&
-              state.tasksFiltered.map((task) => (
+            {state.tasksfiltered[0] &&
+              state.tasksfiltered.map((task) => (
                 <Row
-                  key={task.id}
+                  key={task.Id}
                   setData={setData}
                   task={task}
                   onOpen={onOpen}

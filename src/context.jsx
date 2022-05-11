@@ -7,7 +7,8 @@ const Context = createContext();
 export const Provider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
   const [datastatus, setDataStatus] = useState(false);
-  const [tasksFiltered, setTasksFiltered] = useState([]);
+  const [enablealerts, setEnableAlerts] = useState(false);
+  const [tasksfiltered, setTasksFiltered] = useState([]);
   const [userfilteringparameters, setUserFilteringParameters] = useState([]);
   const [tasksparameters, setTasksParameters] = useState({
     nombres: [],
@@ -21,7 +22,6 @@ export const Provider = ({ children }) => {
     for (let i = 0; i <= text.trim().length - 1; i++) {
       textArr[i] = text.trim().toLowerCase()[i];
     }
-
     const formattedText = [];
 
     for (let i = 0; i <= textArr.length - 1; i++) {
@@ -115,12 +115,16 @@ export const Provider = ({ children }) => {
 
   useEffect(() => {
     setTasksFiltered(filterTasksByUserParams(userfilteringparameters, tasks));
+    if (tasksfiltered.length > 0) {
+      setEnableAlerts(true);
+    }
   }, [userfilteringparameters]);
 
   const state = {
     tasks,
     tasksparameters,
-    tasksFiltered,
+    tasksfiltered,
+    enablealerts,
   };
   const actions = {
     getData,

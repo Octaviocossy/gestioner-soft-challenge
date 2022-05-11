@@ -5,17 +5,14 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
-  TableContainer,
-  Thead,
   useDisclosure,
-  Tr,
-  Th,
-  Tbody,
-  Table as ChakraTable,
-  Td,
   Text,
+  UnorderedList,
+  ListItem,
 } from '@chakra-ui/react';
 import { useState } from 'react';
+
+import Li from '../ui/Li';
 
 const useModal = () => {
   const [data, setData] = useState();
@@ -25,8 +22,8 @@ const useModal = () => {
     return (
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent maxW={'45rem'}>
-          <ModalHeader>
+        <ModalContent maxW={'30rem'}>
+          <ModalHeader paddingBottom={0}>
             Detalles - Buque{' '}
             <Text as={'span'} color={'orange.500'}>
               #{data?.Tarea.Buque.Id}
@@ -34,26 +31,44 @@ const useModal = () => {
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <TableContainer>
-              <ChakraTable variant="simple">
-                <Thead>
-                  <Tr>
-                    <Th>Nombre de Buque</Th>
-                    <Th>Tipo de Carga</Th>
-                    <Th>Turno</Th>
-                    <Th>Mas Detalles</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  <Tr>
-                    <Td>Test</Td>
-                    <Td>Test</Td>
-                    <Td>Test</Td>
-                    <Td>Test</Td>
-                  </Tr>
-                </Tbody>
-              </ChakraTable>
-            </TableContainer>
+            <UnorderedList m={0}>
+              <Li
+                border={true}
+                text={`Fecha de salida: ${data?.FechaInicio.slice(
+                  0,
+                  10
+                ).replaceAll('-', ' / ')}`}
+              />
+              <Li
+                border={true}
+                text={`Hora de salida: ${data?.FechaInicio.slice(11)}`}
+              />
+              <Li
+                border={true}
+                text={` Fecha de llegada:
+                ${data?.FechaFin.slice(0, 10).replaceAll('-', ' / ')}`}
+              />
+              <Li
+                border={true}
+                text={`Hora de llegada: ${data?.FechaFin.slice(11)}`}
+              />
+              <Li
+                border={true}
+                text={`Numero de operativo: #${data?.Tarea.NumeroOperativo}`}
+              />
+              <Li
+                border={true}
+                text={`Ubicacion salida: ${data?.Tarea.Ubicacion1Nombre}`}
+              />
+              <Li
+                border={true}
+                text={`Ubicacion llegada: ${data?.Tarea.Ubicacion2Nombre}`}
+              />
+              <Li
+                border={false}
+                text={`Id operario: #${data?.TareaTurnoOperarioId}`}
+              />
+            </UnorderedList>
           </ModalBody>
         </ModalContent>
       </Modal>

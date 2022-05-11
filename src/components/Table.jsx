@@ -4,7 +4,6 @@ import {
   Table as ChakraTable,
   TableContainer,
   Tbody,
-  Td,
   Th,
   Thead,
   Tr,
@@ -17,7 +16,7 @@ import Row from './Row';
 
 const Table = () => {
   const { state } = useAppContext();
-  const [Modal, setData, onOpen, isOpen] = useModal();
+  const [Modal, setData, onOpen] = useModal();
 
   return (
     <Box>

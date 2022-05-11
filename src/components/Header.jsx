@@ -26,11 +26,11 @@ const Header = () => {
   return (
     <Box
       display={'flex'}
-      flexDirection={'row'}
+      flexDirection={{ md: 'row', base: 'column' }}
       justifyContent={'space-between'}
       py={'2rem'}
     >
-      <Box w={'100%'}>
+      <Box marginTop={{ md: '0', base: '1.5rem' }} w={'100%'}>
         <Text>Nombre de buque: </Text>
         <Select
           handleChange={handleChange}
@@ -39,7 +39,11 @@ const Header = () => {
           value={savevalue.nombre}
         />
       </Box>
-      <Box marginLeft={'0.5rem'} w={'100%'}>
+      <Box
+        marginLeft={{ md: '0.5rem', base: '0' }}
+        marginTop={{ md: '0', base: '1.5rem' }}
+        w={'100%'}
+      >
         <Text>Tipo de carga: </Text>
         <Select
           handleChange={handleChange}
@@ -48,7 +52,11 @@ const Header = () => {
           value={savevalue.tipoCarga}
         />
       </Box>
-      <Box marginLeft={'0.5rem'} w={'100%'}>
+      <Box
+        marginLeft={{ md: '0.5rem', base: '0' }}
+        marginTop={{ md: '0', base: '1.5rem' }}
+        w={'100%'}
+      >
         <Text>Turno: </Text>
         <Select
           handleChange={handleChange}
@@ -59,9 +67,9 @@ const Header = () => {
       </Box>
       <Button
         colorScheme={'orange'}
-        marginLeft={'0.5rem'}
+        marginLeft={{ md: '0.5rem', base: '0' }}
         marginTop={'1.5rem'}
-        w={'25rem'}
+        w={{ md: '25rem', base: 'auto' }}
         onClick={() =>
           setSaveValue({
             nombre: '-',

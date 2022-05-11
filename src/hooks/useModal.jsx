@@ -22,7 +22,7 @@ const useModal = () => {
     return (
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent maxW={'30rem'}>
+        <ModalContent maxW={'30rem'} mx={'0.5rem'}>
           <ModalHeader paddingBottom={0}>
             Detalles - Buque{' '}
             <Text as={'span'} color={'orange.500'}>

@@ -7,7 +7,7 @@ const Pagination = () => {
   const { state, actions } = useAppContext();
 
   return (
-    <HStack alignSelf={'center'} mt={'2rem'} spacing={5}>
+    <HStack alignSelf={'center'} margin={'2rem 0'} spacing={5}>
       <IconButton
         icon={<ArrowBackIcon />}
         variant={'outline'}

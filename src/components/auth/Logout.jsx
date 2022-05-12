@@ -6,6 +6,7 @@ const Logout = () => {
 
   return (
     <Button
+      colorScheme={'orange'}
       variant={'outline'}
       onClick={() => logout({ returnTo: window.location.origin })}
     >

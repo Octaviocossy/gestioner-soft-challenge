@@ -32,8 +32,8 @@ const Table = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {state.tasksfiltered[0] &&
-              state.tasksfiltered.map((task) => (
+            {state.page[0] &&
+              state.page.map((task) => (
                 <Row
                   key={task.Id}
                   setData={setData}

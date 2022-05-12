@@ -5,7 +5,9 @@ import api from './api';
 const Context = createContext();
 
 export const Provider = ({ children }) => {
+  const [page, setPage] = useState([]);
   const [tasks, setTasks] = useState([]);
+  const [currentpage, setCurrentPage] = useState(0);
   const [datastatus, setDataStatus] = useState(false);
   const [enablealerts, setEnableAlerts] = useState(false);
   const [tasksfiltered, setTasksFiltered] = useState([]);
@@ -113,6 +115,28 @@ export const Provider = ({ children }) => {
     setDataStatus(true);
   };
 
+  const handleNextPage = () => {
+    const elementCount = tasksfiltered.length;
+    const nextPage = currentpage + 1;
+    const firstIndex = nextPage * 10;
+
+    if (firstIndex >= elementCount) return;
+
+    setPage([...tasksfiltered].splice(firstIndex, 10));
+    setCurrentPage(nextPage);
+  };
+
+  const handlePreviousPage = () => {
+    const prevPage = currentpage - 1;
+
+    if (prevPage < 0) return;
+
+    const firstIndex = prevPage * 10;
+
+    setPage([...tasksfiltered].splice(firstIndex, 10));
+    setCurrentPage(prevPage);
+  };
+
   useEffect(() => {
     setTasksFiltered(filterTasksByUserParams(userfilteringparameters, tasks));
     if (tasksfiltered.length > 0) {
@@ -120,17 +144,26 @@ export const Provider = ({ children }) => {
     }
   }, [userfilteringparameters, tasks]);
 
+  useEffect(() => {
+    setPage([...tasksfiltered].splice(0, 10));
+    setCurrentPage(0);
+  }, [tasksfiltered]);
+
   const state = {
-    tasks,
     tasksparameters,
     tasksfiltered,
     enablealerts,
+    currentpage,
+    tasks,
+    page,
   };
   const actions = {
-    getData,
+    handlePreviousPage,
     getTasksParameters,
     saveUserParameters,
+    handleNextPage,
     textFormatter,
+    getData,
   };
 
   return (

@@ -13,9 +13,9 @@ const UserBar = () => {
           borderRadius={'full'}
           maxW={'4rem'}
           mr={'0.5rem'}
-          src={user.picture}
+          src={user?.picture}
         />
-        <Text>{user.name}</Text>
+        <Text display={{ md: 'block', base: 'none' }}>{user?.name}</Text>
       </HStack>
       <Logout />
     </HStack>

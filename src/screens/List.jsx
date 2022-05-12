@@ -1,10 +1,12 @@
-import { Container, useToast } from '@chakra-ui/react';
+import { Container, Flex, useToast } from '@chakra-ui/react';
 import { useEffect } from 'react';
 
 import Filters from '../components/Filters';
 import { useAppContext } from '../context';
 import Table from '../components/Table';
 import UserBar from '../components/UserBar';
+import Pagination from '../components/Pagination';
+import api from '../api';
 
 const List = () => {
   const { state, actions } = useAppContext();
@@ -32,10 +34,11 @@ const List = () => {
   }, [state.tasksfiltered]);
 
   return (
-    <Container maxW={'container.lg'}>
+    <Container display={'flex'} flexDirection={'column'} maxW={'container.lg'}>
       <UserBar />
       <Filters />
       <Table />
+      <Pagination />
     </Container>
   );
 };

@@ -118,7 +118,7 @@ export const Provider = ({ children }) => {
     if (tasksfiltered.length > 0) {
       setEnableAlerts(true);
     }
-  }, [userfilteringparameters]);
+  }, [userfilteringparameters, tasks]);
 
   const state = {
     tasks,

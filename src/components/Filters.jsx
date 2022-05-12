@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useAppContext } from '../context';
 import Select from '../ui/Select';
 
-const Header = () => {
+const Filters = () => {
   const { state, actions } = useAppContext();
   const [savevalue, setSaveValue] = useState({
     nombre: '-',
@@ -84,4 +84,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default Filters;

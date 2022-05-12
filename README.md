@@ -17,7 +17,3 @@ npm run dev
 Correo: ***gestionerchallenge@gmail.com***
 
 Pass: ***Testchallenge123***
-
----
-
-[DEMO]()
